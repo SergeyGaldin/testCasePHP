@@ -19,8 +19,16 @@
             }
         }
         
-        public function getDataRequests() {
-            return $this->con->query("SELECT * FROM requests JOIN statuses ON status = id_status JOIN priorities ON priority = id_priority");
+        public function updateDataRequest($id_request, $name_request, $deposit, $service, $executor, $priority, $date_begine) {
+            return $this->con->query("UPDATE requests SET name_request = '$name_request', deposit = '$deposit', service = '$service', executor = '$executor', priority = '$priority', date_begine = '$date_begine' WHERE id_request = '$id_request'");
+        }
+        
+        public function deleteRequest($id_request) {
+            return $this->con->query("DELETE FROM requests WHERE id_request = '$id_request'");
+        }
+        
+       public function getDataRequests() {
+            return $this->con->query("SELECT * FROM requests JOIN deposits ON deposit = id_deposit JOIN services ON service = id_service JOIN users ON executor = id JOIN organizations ON organization = id_organization JOIN statuses ON status = id_status JOIN priorities ON priority = id_priority");
         }
         
         public function getDataExecutor(){
